@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="urdf_tutorial">
+
+    <!-- MACROS -->
+    <xacro:include filename="macros.xacro"/>
+
+    <!-- COLOR -->
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0 0 1 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <!-- BASE LINK -->
+    <link name="base_link">
+    </link>
+
+    <!-- BODY LINK -->
+    <joint name="body_joint" type="fixed">
+        <parent link="base_link"/>
+        <!-- 조인트의 기준이 되는 링크 : 기준 좌표계 제공 -->
+        <child link="body"/>
+        <!-- joint를 통해 parent에 연결되는 링크 -->
+        <origin xyz="-0.12 0 0"/>
+    </joint>
+
+    <link name="body">
+        <visual>
+            <origin xyz="0.1 0 0.03"/>
+            <geometry>
+                <box size="0.2 0.1 0.06"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.1 0 0.03"/>
+            <geometry>
+                <box size="0.2 0.1 0.06"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.5" x="0.2" y="0.1" z="0.06">
+            <origin xyz="0.1 0 0.03" rpy="0 0 0"/>
+            <!-- 여기서 origin은 관성 중심과 관성 모멘트의 기준점을 정함-->
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="body">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <!-- gazebo 시뮬레이션 전용 설정 태그-->
+
+    <!-- LEFT WHEEL LINK -->
+    <joint name="left_wheel_joint" type="continuous">
+    <!-- continuous는 무한히 회전하는 조인트 -->
+        <parent link="base_link"/>
+        <child link="left_wheel"/>
+        <origin xyz="0 0.065 0" rpy="-${pi/2} 0 0"/>
+        <!-- rpy는 roll-pitch-yaw : 회전각 -->
+        <axis xyz="0 0 1"/>
+        <!-- continuous type이므로 회전하거나 움직이는 방향 지정 -->
+    </joint>
+
+    <link name="left_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.03"/>
+                <!-- 반지름과 폭 설정 -->
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.03"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.03" radius="0.03">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- RIGHT WHEEL LINK -->
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="right_wheel"/>
+        <origin xyz="0 -0.065 0" rpy="${pi/2} 0 0"/>
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="right_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.03"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.03"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.03" radius="0.03">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- CASTER WHEEL LINK -->
+    <joint name="caster_wheel_joint" type="fixed">
+        <parent link="body"/>
+        <child link="caster_wheel"/>
+        <origin xyz="0.03 0 0"/>
+    </joint>
+
+    <link name="caster_wheel">
+        <visual>
+            <geometry>
+                <sphere radius="0.03"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.03"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.1" radius="0.03">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <gazebo reference="caster_wheel">
+        <material>Gazebo/Blue</material>
+
+        <!-- mu1과 mu2는 마찰계수 -->
+        <mu1 value="0.001"/> <!-- 주 마찰 방향(바퀴 회전방향) -->
+        <mu2 value="0.001"/> <!-- 수직 마찰 방향(바퀴가 좌우로 미끄러지는 방향 -->
+    </gazebo>
+
+    <!-- GAZEBO -->
+    <xacro:include filename="gazebo.xacro"/>
+
+</robot>

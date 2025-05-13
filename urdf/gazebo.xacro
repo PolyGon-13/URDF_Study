@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+        <!-- libgazebo_ros_diff_drive.so : 로봇을 제어할 수 있게 해주는 c++ 라이브러리 -->
+
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            <!-- 로봇의 왼쪽과 오른쪽 바퀴 joint 이름 지정 -->
+            
+            <wheel_separation>0.35</wheel_separation>
+            <!-- 바퀴 사이의 거리(단위:미터) -->
+            <wheel_diameter>0.3</wheel_diameter>
+            <!-- 바퀴의 지름(단위:미터) -->
+
+            <max_wheel_torque>100</max_wheel_torque>
+            <!-- 바퀴에 줄 수 있는 최대 토크 -->
+            <max_wheel_acceleration>10.0</max_wheel_acceleration>
+            <!-- 바퀴의 최대 가속도 -->
+
+            <odometry_frame>odom</odometry_frame>
+            <!-- 오도메트리 좌표계의 이름(일반적으로 odom 사용) -->
+            <robot_base_frame>base_link</robot_base_frame>
+            <!-- 로봇 본체의 기준 프레임 -->
+
+            <publish_odom>true</publish_odom>
+            <!-- 오도메트리 정보를 퍼블리시할지 여부 -->
+            <publish_odom_tf>true</publish_odom_tf>
+            <!-- odom->base_link로 가는 tf(좌표변환)을 퍼블리시할지 여부 -->
+            <publish_wheel_tf>true</publish_wheel_tf>
+            <!-- 바퀴 조인트의 tf도 함께 퍼블리시할지 여부 -->
+            
+        </plugin>
+    </gazebo>
+
+</robot>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="urdf_test">
+<!-- name은 로봇의 이름 : rviz나 ros에서 로봇을 다룰 때 사용됨 -->
+<!--  xmlns:xacro 부분은 네임스페이스 선언 : xacro 문법을 사용할 것임을 명시 -->
+    <material name="white">
+      <color rgba="1 1 1 1"/>
+    </material>
+  
+    <link name="base_link">
+    </link>
+
+    <joint name="body_joint" type="fixed">
+    <!--  type이 fixed이므로 움직이지 않고 항상 같은 위치에 고정 : body는 base_link에 붙어서 고정되어 있음-->
+      <parent link="base_link"/>
+      <child link="body"/>
+    </joint>
+
+    <link name="body">
+      <visual>
+          <geometry>
+            <!-- <box size="1 1 1"/> -->
+            <!-- <cylinder radius="1" length="0.5"/> -->
+            <sphere radius="1.0"/>
+          </geometry>
+          <material name="yellow"/>
+      </visual>
+    </link>
+</robot>
