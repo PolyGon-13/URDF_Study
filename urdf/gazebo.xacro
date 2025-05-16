@@ -14,9 +14,9 @@
             <wheel_diameter>0.3</wheel_diameter>
             <!-- 바퀴의 지름(단위:미터) -->
 
-            <max_wheel_torque>100</max_wheel_torque>
+            <max_wheel_torque>200</max_wheel_torque>
             <!-- 바퀴에 줄 수 있는 최대 토크 -->
-            <max_wheel_acceleration>10.0</max_wheel_acceleration>
+            <max_wheel_acceleration>20.0</max_wheel_acceleration>
             <!-- 바퀴의 최대 가속도 -->
 
             <odometry_frame>odom</odometry_frame>
