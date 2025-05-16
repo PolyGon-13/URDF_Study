@@ -6,7 +6,7 @@ import math
 
 class ScanFilterNode(Node):
     def __init__(self):
-        super().__init__('scan_filter_node')
+        super().__init__('ranges_intensities_filter')
         self.subscription=self.create_subscription(
             LaserScan, # 메시지 타입
             '/scan', # /scan 이라는 토픽 구독
